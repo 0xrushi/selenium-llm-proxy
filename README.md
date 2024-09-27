@@ -35,7 +35,7 @@ interactions with Language Model (LLM) software components such as apps, agents,
 To get started, clone the repository and install the required packages:
 
 ```bash
-git clone https://github.com/yourusername/selenium-llm-proxy.git
+git clone https://github.com/0xrushi/selenium-llm-proxy.git
 cd selenium-llm-proxy
 pip install -r requirements.txt
 ```
