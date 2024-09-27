@@ -22,7 +22,7 @@ class SimpleCustomLLM(LLM):
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer sk-fake-key-12345"  # Make sure to set your API_KEY
+            "Authorization": f"Bearer sk-fake-key-12345"
         }
         data = {
             "model": "gpt-3.5-turbo",
@@ -43,15 +43,12 @@ class SimpleCustomLLM(LLM):
     @property
     def _identifying_params(self) -> dict[str, Any]:
         return {"name": "custom_llm"}
-# Initialize the custom LLM
-custom_llm = SimpleCustomLLM(api_url="http://127.0.0.1:5000", api_key="sk-fake-key-12345")
 
-# Define the state
+
 class State(TypedDict):
     ideas: List[str]
     analysis: Optional[str]
 
-# Define the nodes
 def generate_ideas(state: State) -> dict:
     prompt = PromptTemplate.from_template(
         "You are an Ideation Specialist. Your goal is to come up with innovative business ideas. "
@@ -74,34 +71,31 @@ def analyze_ideas(state: State) -> dict:
     state["analysis"] = analysis
     return state
 
-# Define the graph
-workflow = StateGraph(State)
 
-# Add nodes to the graph
-workflow.add_node("generate_ideas", generate_ideas)
-workflow.add_node("analyze_ideas", analyze_ideas)
+if __name__ == "__main__":
+    custom_llm = SimpleCustomLLM(api_url="http://127.0.0.1:5000", api_key="sk-fake-key-12345")
 
-# Connect the nodes
-workflow.add_edge("generate_ideas", "analyze_ideas")
+    workflow = StateGraph(State)
 
-# Set the entry point
-workflow.set_entry_point("generate_ideas")
+    workflow.add_node("generate_ideas", generate_ideas)
+    workflow.add_node("analyze_ideas", analyze_ideas)
 
-# Set the output node
-workflow.add_edge("analyze_ideas", END)
+    workflow.add_edge("generate_ideas", "analyze_ideas")
 
-# Compile the graph
-app = workflow.compile()
+    workflow.set_entry_point("generate_ideas")
 
-# Run the graph
-final_state = app.invoke({
-    "ideas": [],
-    "analysis": None
-})
+    workflow.add_edge("analyze_ideas", END)
 
-print("Final State:")
-print("Ideas:")
-for idea in final_state["ideas"]:
-    print(f"- {idea}")
-print("\nAnalysis:")
-print(final_state["analysis"])
+    app = workflow.compile()
+
+    final_state = app.invoke({
+        "ideas": [],
+        "analysis": None
+    })
+
+    print("Final State:")
+    print("Ideas:")
+    for idea in final_state["ideas"]:
+        print(f"- {idea}")
+    print("\nAnalysis:")
+    print(final_state["analysis"])
