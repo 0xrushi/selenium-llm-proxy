@@ -126,12 +126,10 @@ def chat_completions():
         model = data.get('model', 'gpt-3.5-turbo')
         
         # response = send_text_hardcoded(messages, model)
-        driver = gptParser.get_driver()
-        gpt_parser = gptParser(driver)
         response = ask_gpt_for_final_answer(gpt_parser, str(messages))
         logger.info("Sending hardcoded response")
         logger.debug(f"Response: {response}")
-        gpt_parser.close()
+        
         return jsonify(response)
     
     except Exception as e:
@@ -139,4 +137,7 @@ def chat_completions():
         return jsonify({"error": "An internal server error occurred", "details": str(e)}), 500
 
 if __name__ == '__main__':
+    driver = gptParser.get_driver()
+    global gpt_parser
+    gpt_parser = gptParser(driver)
     app.run(debug=True, port=5000)

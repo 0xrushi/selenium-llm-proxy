@@ -1,6 +1,9 @@
 # Selenium LLM Proxy 🌐🤖
 
-Easily connect browser-based LLMs with your favorite AI tools!
+**Easily connect browser-based LLMs with your favorite AI tools!**
+
+This project allows for the automation of AI interactions within websites using tools like Selenium or Websockets. Additionally, it provides a way to connect those automated
+interactions with Language Model (LLM) software components such as apps, agents, or libraries.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.7+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -21,6 +24,11 @@ Easily connect browser-based LLMs with your favorite AI tools!
 - ⏱️ Performance is slower compared to official APIs, but good enough for experimentation
 - 🔄 You may need to periodically update Selenium scripts and chromedriver to ensure compatibility
 - Implementing it with CrewAI is more challenging due to their architecture, but it works with Langgraph
+
+## Demo video
+
+[<img src="images/video_thumbnail.png" width="80%">](https://odysee.com/@rushi:2/demo_selenium_proxy:0)
+
 
 ## 🛠️ Installation
 
