@@ -44,12 +44,12 @@ pip install -r requirements.txt
 
 1. Launch LLM server with 
    ```python
-   python main.py
+   python scripts/main.py
    ```
 
 2. Execute the agent experiment in another terminal
    ```bash
-   python langgraph_experiment.py
+   python scripts/langgraph_experiment.py
    ```
 
 ## 📄 License
